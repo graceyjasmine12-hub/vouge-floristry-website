@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Vouge Floristry - Handmade Pottery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #CE8D66;
+            --secondary: #E55934;
+            --light: #F3EFF5;
+            --dark: #2C2C2C;
+            --white: #FFFFFF;
+            --border-color: #E0E0E0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        /* ============= HEADER & NAVIGATION ============= */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            transition: transform 0.3s;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-counter {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary);
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* ============= SEARCH BAR ============= */
+        .search-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(229, 89, 52, 0.1);
+        }
+
+        /* ============= HERO SECTION ============= */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2.5rem;
+            background-color: var(--white);
+            color: var(--secondary);
+            text-decoration: none;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: #d44a26;
+        }
+
+        /* ============= SHOP SECTION ============= */
+        .shop {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+            font-weight: bold;
+            overflow: hidden;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .product-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--secondary);
+            transform: scale(1.02);
+        }
+
+        .add-to-cart-btn.added {
+            background-color: #4CAF50;
+        }
+
+        /* ============= ABOUT SECTION ============= */
+        .about {
+            background-color: var(--white);
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 4rem;
+        }
+
+        /* ============= CONTACT SECTION ============= */
+        .contact {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background-color: var(--white);
+            color: var(--secondary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ============= CART MODAL ============= */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-modal.active {
+            display: flex;
+        }
+
+        .cart-content {
+            background-color: var(--white);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        .cart-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+        }
+
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--light);
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .item-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .item-quantity {
+            margin: 0 0.5rem;
+            color: #666;
+        }
+
+        .remove-item {
+            background-color: #ff6b6b;
+            color: var(--white);
+            border: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .remove-item:hover {
+            background-color: #ff5252;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+        }
+
+        .cart-total {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--secondary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #d44a26;
+            transform: scale(1.02);
+        }
+
+        .checkout-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        /* ============= FOOTER ============= */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* ============= RESPONSIVE ============= */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem;
+            }
+
+            nav {
+                display: none;
+                gap: 1rem;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                padding: 1rem;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-image {
+                height: 250px;
+            }
+
+            .contact h2 {
+                font-size: 1.8rem;
+            }
+
+            .cart-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image {
+                height: 200px;
+            }
+
+            .btn {
+                padding: 0.6rem 2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============= HEADER ============= -->
+    <header>
+        <div class="header-container">
+            <a href="#home" class="logo">the <span>vouge</span> floristry</a>
+            <nav id="nav">
+                <a href="#home">Home</a>
+                <a href="#shop">Shop</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="cart-icon" id="cartIcon">
+                    🛒
+                    <span class="cart-counter" id="cartCounter">0</span>
+                </div>
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============= SEARCH BAR ============= -->
+    <div class="search-container">
+        <input 
+            type="text" 
+            class="search-bar" 
+            id="searchBar" 
+            placeholder="🔍 Search products..."
+        >
+    </div>
+
+    <!-- ============= HERO SECTION ============= -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <h1>Handmade Pottery From The Vouge Floristry</h1>
+            <p>Beautifully crafted pottery pieces for your home and garden</p>
+            <a href="#shop" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- ============= SHOP SECTION ============= -->
+    <section class="shop" id="shop">
+        <h2 class="section-title">Our Collection</h2>
+        <p class="section-subtitle">Premium handmade pottery</p>
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+    </section>
+
+    <!-- ============= ABOUT SECTION ============= -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>About The Vouge Floristry</h2>
+                <p>Welcome to The Vouge Floristry, where tradition meets contemporary design. Each piece in our collection is meticulously handcrafted by skilled artisans who pour their passion into every creation.</p>
+                <p>Our pottery is made using premium clay and traditional techniques passed down through generations. We believe in creating pieces that not only beautify your space but also tell a story of craftsmanship and dedication.</p>
+                <p>From elegant vases to functional bowls, every item is unique and designed to bring warmth and character to your home. We're committed to sustainability and quality, ensuring that each product is built to last.</p>
+            </div>
+            <div class="about-image">🏺</div>
+        </div>
+    </section>
+
+    <!-- ============= CONTACT SECTION ============= -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2>Ready to Order?</h2>
+            <p>Get in touch with us on WhatsApp for custom orders and inquiries</p>
+            <a href="https://wa.me/2348000000000?text=Hi%20The%20Vouge%20Floristry%2C%20I%20would%20like%20to%20order" 
+               class="whatsapp-btn" 
+               target="_blank">
+                📱 Order on WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- ============= FOOTER ============= -->
+    <footer>
+        <p>&copy; 2025 The Vouge Floristry. All rights reserved. | Handmade with ❤️</p>
+    </footer>
+
+    <!-- ============= CART MODAL ============= -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <button class="close-btn" id="closeCart">&times;</button>
+            <h3 class="cart-title">Shopping Cart</h3>
+            <div class="cart-items" id="cartItems">
+                <div class="empty-cart">Your cart is empty</div>
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="totalPrice">₦0</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn" disabled>Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // ============= PRODUCTS DATA =============
+        const products = [
+            {
+                id: 1,
+                name: 'Clay Vase',
+                price: 3500,
+                image: '🏺',
+                description: 'Elegant clay vase for fresh flowers'
+            },
+            {
+                id: 2,
+                name: 'Water Pot',
+                price: 2500,
+                image: '💧',
+                description: 'Traditional handmade water pot'
+            },
+            {
+                id: 3,
+                name: 'Coffee Mug',
+                price: 1500,
+                image: '☕',
+                description: 'Artisan coffee mug with unique glaze'
+            },
+            {
+                id: 4,
+                name: 'Flower Pot',
+                price: 2000,
+                image: '🌸',
+                description: 'Perfect for indoor and outdoor plants'
+            },
+            {
+                id: 5,
+                name: 'Soup Bowl',
+                price: 1800,
+                image: '🍲',
+                description: 'Beautiful serving bowl for your kitchen'
+            },
+            {
+                id: 6,
+                name: 'Incense Burner',
+                price: 2200,
+                image: '🔥',
+                description: 'Decorative incense holder with design'
+            }
+        ];
+
+        // ============= CART STATE =============
+        let cart = [];
+
+        // ============= DOM ELEMENTS =============
+        const productsGrid = document.getElementById('productsGrid');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCounter = document.getElementById('cartCounter');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const totalPrice = document.getElementById('totalPrice');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const searchBar = document.getElementById('searchBar');
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+
+        // ============= RENDER PRODUCTS =============
+        function renderProducts(productsToShow = products) {
+            productsGrid.innerHTML = '';
+            productsToShow.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image">${product.image}</div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-desc">${product.description}</p>
+                        <div class="product-price">₦${product.price.toLocaleString()}</div>
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                            Add to Cart
+                        </button>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        // ============= ADD TO CART =============
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+
+            updateCart();
+            showNotification(`${product.name} added to cart!`);
+        }
+
+        // ============= UPDATE CART =============
+        function updateCart() {
+            // Update counter
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCounter.textContent = totalItems;
+
+            // Update cart items display
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+                checkoutBtn.disabled = true;
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="item-details">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">₦${item.price.toLocaleString()}</div>
+                        </div>
+                        <div class="item-quantity">x${item.quantity}</div>
+                        <button class="remove-item" onclick="removeFromCart(${item.id})">Remove</button>
+                    </div>
+                `).join('');
+                checkoutBtn.disabled = false;
+            }
+
+            // Update total price
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalPrice.textContent = '₦' + total.toLocaleString();
+        }
+
+        // ============= REMOVE FROM CART =============
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        // ============= CART MODAL FUNCTIONS =============
+        cartIcon.addEventListener('click', () => {
+            cartModal.classList.add('active');
+        });
+
+        closeCart.addEventListener('click', () => {
+            cartModal.classList.remove('active');
+        });
+
+        cartModal.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.classList.remove('active');
+            }
+        });
+
+        // ============= CHECKOUT =============
+        checkoutBtn.addEventListener('click', () => {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const cartSummary = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
+            const message = `I want to order: ${cartSummary}. Total: ₦${total.toLocaleString()}`;
+            const whatsappUrl = `https://wa.me/2348000000000?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // ============= SEARCH FUNCTIONALITY =============
+        searchBar.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = products.filter(product =>
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm)
+            );
+            renderProducts(filtered);
+        });
+
+        // ============= MOBILE MENU TOGGLE =============
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('#nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+
+        // ============= NOTIFICATION =============
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background-color: #4CAF50;
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 5px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                z-index: 3000;
+                animation: slideIn 0.3s ease-in;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // ============= ANIMATIONS =============
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // ============= INITIALIZE =============
+        renderProducts();
+    </script>
+</body>
+</html>
